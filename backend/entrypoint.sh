@@ -15,13 +15,13 @@ if [ -n "$DATABASE_URL" ]; then
   done
 fi
 
-# Run migrations (dev) if prisma migrate exists
+# Push Prisma schema and generate client
 if [ -f ./prisma/schema.prisma ]; then
   echo "Pushing Prisma schema (prisma db push)..."
   npx prisma db push || echo "prisma db push failed, continuing..."
 
-  echo "Running prisma migrate deploy..."
-  npx prisma migrate deploy || echo "prisma migrate deploy failed or nothing to apply"
+  echo "Running prisma generate..."
+  npx prisma generate || echo "prisma generate failed"
 fi
 
 # start the app
