@@ -53,8 +53,10 @@ services:
     depends_on:
       - frontend
       - backend
+    # Mount the whole nginx directory into /etc/nginx/conf.d to avoid
+    # file-vs-directory mount errors on some deployment platforms (Coolify).
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx:/etc/nginx/conf.d:ro
     restart: unless-stopped
     networks:
       - webnet
